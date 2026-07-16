@@ -121,7 +121,7 @@ void setup() {
   WiFi.begin(ssid, password);
   WiFi.setSleep(false);
 
-Serial.print("WiFi connecting");
+  Serial.print("WiFi connecting");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
