@@ -3,8 +3,8 @@
 #include <PubSubClient.h>  // MQTT
 
 
-const char *ssid = "ANDROMEDA";
-const char *password = "AlNa972005_#";
+const char *ssid = "xxxx";
+const char *password = "xxxxx";
 
 // IP estatica
 IPAddress local_IP(192, 168, 10, 28);
@@ -15,12 +15,12 @@ IPAddress secundaryDNS(8, 8, 8, 8);
 
 // MQTT
 const char *mqtt_server = "192.168.10.17"; // IP de broker mosquito
-const uint8_t mqtt_port = 1883;
+const int mqtt_port = 1883;
 const char *mqtt_client_id = "esp32-servos";
 
-const char *topic_pan = "";
-const char *topic_tilt = "";
-const char *topic_estado = "";
+const char *topic_pan = "casa/camara/servo/pan";
+const char *topic_tilt = "casa/camara/servo/tilt";
+const char *topic_estado = "casa/camara/servo/estado";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -28,8 +28,8 @@ PubSubClient client(espClient);
 // SERVOS
 Servo servoPan;
 Servo servoTilt;
-const int PIN_SERVO_PAN = 13;
-const int PIN_SERVO_TILT = 12;
+const int PIN_SERVO_PAN = 17;
+const int PIN_SERVO_TILT = 16;
 // Limites mecanicos de los servos
 const int PAN_MIN = 0;
 const int PAN_MAX = 180;
@@ -45,7 +45,7 @@ const unsigned long STATE_PUBLISH_INTERVAL = 2000; //ms
 // Funciones para utilidades
 int angleLimit(int val, int minVal, int maxVal) {
     if (val < minVal) return minVal;
-    if (val < maxVal) return maxVal;
+    if (val > maxVal) return maxVal;
     return val;
 }
 
@@ -118,6 +118,7 @@ void setup() {
     setupWiFi();
 
     client.setServer(mqtt_server, mqtt_port);
+    client.setCallback(callback);
 }
 
 void loop() {
