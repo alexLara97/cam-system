@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cámara de casa</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Cámara pan-tilt</h1>
+
+    <div class="video-wrap">
+      <img src="{{ stream_url }}" alt="Stream cámara" id="video-stream">
+    </div>
+
+    <div class="controls">
+      <div class="dpad">
+        <button class="dpad-btn dpad-up"    data-x="0"  data-y="1">▲</button>
+        <button class="dpad-btn dpad-left"  data-x="-1" data-y="0">◀</button>
+        <button class="dpad-btn dpad-center" id="btn-centrar">●</button>
+        <button class="dpad-btn dpad-right" data-x="1"  data-y="0">▶</button>
+        <button class="dpad-btn dpad-down"  data-x="0"  data-y="-1">▼</button>
+      </div>
+      <div class="info">
+        <p>Pan: <span id="pan-value">--</span>°</p>
+        <p>Tilt: <span id="tilt-value">--</span>°</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const socket = io();
+
+    // --- Actualización de estado recibido del backend ---
+    socket.on("estado_servos", (data) => {
+      document.getElementById("pan-value").textContent = data.pan;
+      document.getElementById("tilt-value").textContent = data.tilt;
+    });
+
+    // --- Botón centrar ---
+    document.getElementById("btn-centrar").addEventListener("click", () => {
+      socket.emit("centrar");
+    });
+
+    // --- Botones direccionales (pulsación mantenida = movimiento continuo) ---
+    let moveInterval = null;
+
+    function startMove(x, y) {
+      if (moveInterval) clearInterval(moveInterval);
+      // Enviamos un tick inmediatamente y luego seguimos cada 100ms
+      // mientras el botón siga pulsado.
+      socket.emit("mover_joystick", { x: x, y: y });
+      moveInterval = setInterval(() => {
+        socket.emit("mover_joystick", { x: x, y: y });
+      }, 100);
+    }
+
+    function stopMove() {
+      if (moveInterval) {
+        clearInterval(moveInterval);
+        moveInterval = null;
+      }
+    }
+
+    document.querySelectorAll(".dpad-btn[data-x]").forEach((btn) => {
+      const x = parseFloat(btn.dataset.x);
+      const y = parseFloat(btn.dataset.y);
+
+      // Ratón (escritorio)
+      btn.addEventListener("mousedown", () => startMove(x, y));
+      btn.addEventListener("mouseup", stopMove);
+      btn.addEventListener("mouseleave", stopMove);
+
+      // Táctil (móvil) - preventDefault evita que dispare también los
+      // eventos de ratón y que la página haga scroll al arrastrar
+      btn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        startMove(x, y);
+      });
+      btn.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        stopMove();
+      });
+    });
+  </script>
+</body>
+</html>

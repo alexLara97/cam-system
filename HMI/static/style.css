@@ -1,0 +1,86 @@
+body {
+    background: #111;
+    color: #eee;
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .video-wrap {
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .video-wrap img {
+    width: 100%;
+    display: block;
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
+    gap: 6px;
+    user-select: none;
+  }
+  
+  .dpad-btn {
+    margin: 0;
+    padding: 0;
+    font-size: 1.4em;
+    background: #222;
+    color: #eee;
+    border: 1px solid #444;
+    border-radius: 8px;
+    cursor: pointer;
+    touch-action: none; /* evita scroll/zoom accidental al mantener pulsado en móvil */
+  }
+  
+  .dpad-btn:active {
+    background: #2a7;
+  }
+  
+  .dpad-up    { grid-column: 2; grid-row: 1; }
+  .dpad-left  { grid-column: 1; grid-row: 2; }
+  .dpad-center{ grid-column: 2; grid-row: 2; font-size: 1em; }
+  .dpad-right { grid-column: 3; grid-row: 2; }
+  .dpad-down  { grid-column: 2; grid-row: 3; }
+  
+  .info {
+    text-align: left;
+  }
+  
+  .info p {
+    margin: 4px 0;
+    font-size: 1.1em;
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #2a7;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #3c8;
+  }
