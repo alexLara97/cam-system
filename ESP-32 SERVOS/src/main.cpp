@@ -3,8 +3,8 @@
 #include <PubSubClient.h>  // MQTT
 
 
-const char *ssid = "xxxx";
-const char *password = "xxxxx";
+const char *ssid = "xxx";
+const char *password = "xxxx";
 
 // IP estatica
 IPAddress local_IP(192, 168, 10, 28);

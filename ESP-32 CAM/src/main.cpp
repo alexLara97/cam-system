@@ -9,8 +9,8 @@
 // ===========================
 // Enter your WiFi credentials
 // ===========================
-const char *ssid = "XXXX";
-const char *password = "XXXX";
+const char *ssid = "xxx";
+const char *password = "xxxx";
 
 // IP estatica
 IPAddress local_IP(192, 168, 10, 27);

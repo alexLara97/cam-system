@@ -1,0 +1,15 @@
+{
+    "MQTT_BROKER": "127.0.0.1",
+    "MQTT_PORT": 1883,
+    "MQTT_CLIENT_ID": "hmi-backend",
+    "TOPIC_PAN": "casa/camara/servo/pan",
+    "TOPIC_TILT": "casa/camara/servo/tilt",
+    "TOPIC_ESTADO": "casa/camara/servo/estado",
+    "STREAM_URL": "http://192.168.10.27:81/stream",
+    "PAN_MIN": 0,
+    "PAN_MAX": 180,
+    "TILT_MIN": 30,
+    "TILT_MAX": 150,
+    "STEP_DEGREES": 3,
+    "MOVE_THROTTLE": 0.1
+}
