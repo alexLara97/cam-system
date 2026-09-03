@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Cámara pan-tilt</h1>
+    <h1>Casa Madrid</h1>
 
     <div class="video-wrap">
       <img src="{{ stream_url }}" alt="Stream cámara" id="video-stream">
@@ -17,15 +17,11 @@
 
     <div class="controls">
       <div class="dpad">
-        <button class="dpad-btn dpad-up"    data-x="0"  data-y="1">▲</button>
+        <button class="dpad-btn dpad-up"    data-x="0"  data-y="-1">▲</button>
         <button class="dpad-btn dpad-left"  data-x="-1" data-y="0">◀</button>
         <button class="dpad-btn dpad-center" id="btn-centrar">●</button>
         <button class="dpad-btn dpad-right" data-x="1"  data-y="0">▶</button>
-        <button class="dpad-btn dpad-down"  data-x="0"  data-y="-1">▼</button>
-      </div>
-      <div class="info">
-        <p>Pan: <span id="pan-value">--</span>°</p>
-        <p>Tilt: <span id="tilt-value">--</span>°</p>
+        <button class="dpad-btn dpad-down"  data-x="0"  data-y="1">▼</button>
       </div>
     </div>
   </div>
